@@ -28,6 +28,7 @@ public class TimeTable extends JFrame implements ActionListener {
         String capField[] = {"Slots:", "Courses:", "Clash File:", "Iters:", "Shift:"};
         field = new JTextField[capField.length];
 
+       //Continue button added
         String capButton[] = {"Load", "Start", "Step", "Print", "Exit", "Continue"};
         tool = new JButton[capButton.length];
 
