@@ -1,7 +1,7 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-//
+
 public class TimeTable extends JFrame implements ActionListener {
 
     private JPanel screen = new JPanel(), tools = new JPanel();
@@ -28,7 +28,7 @@ public class TimeTable extends JFrame implements ActionListener {
         String capField[] = {"Slots:", "Courses:", "Clash File:", "Iters:", "Shift:"};
         field = new JTextField[capField.length];
 
-        String capButton[] = {"Load", "Start", "Step", "Print", "Exit"};
+        String capButton[] = {"Load", "Start", "Step", "Print", "Exit", "Continue"};
         tool = new JButton[capButton.length];
 
         tools.setLayout(new GridLayout(2 * capField.length + capButton.length, 1));
@@ -106,6 +106,23 @@ public class TimeTable extends JFrame implements ActionListener {
                 break;
             case 4:
                 System.exit(0);
+                break;
+            case 5:
+                min = Integer.MAX_VALUE;
+                step = 0;
+                for (int iteration = 1; iteration <= Integer.parseInt(field[3].getText()); iteration++) {
+                    courses.iterate(Integer.parseInt(field[4].getText()));
+                    draw();
+                    clashes = courses.clashesLeft();
+                    if (clashes < min) {
+                        min = clashes;
+                        step = iteration;
+                    }
+                }
+                System.out.println("Continuing from current state...");
+                System.out.println("Shift = " + field[4].getText() + "\tMin clashes = " + min + "\tat step " + step);
+                setVisible(true);
+                break;
         }
     }
 
@@ -113,5 +130,3 @@ public class TimeTable extends JFrame implements ActionListener {
         new TimeTable();
     }
 }
-
-
