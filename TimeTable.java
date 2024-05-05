@@ -1,7 +1,7 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-
+//
 public class TimeTable extends JFrame implements ActionListener {
 
     private JPanel screen = new JPanel(), tools = new JPanel();

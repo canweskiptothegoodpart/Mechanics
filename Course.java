@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class Course {
-
+//
     public Vector<Course> clashesWith;
     public int mySlot, force;
 

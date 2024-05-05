@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.StringTokenizer;
 
 public class CourseArray {
-
+//
     private Course elements[];
     private int period;
 

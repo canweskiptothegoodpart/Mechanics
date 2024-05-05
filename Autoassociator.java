@@ -1,4 +1,5 @@
 public class Autoassociator {
+    //
     private int weights[][];
     private int trainingCapacity;
 
