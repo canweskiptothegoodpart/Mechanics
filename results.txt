@@ -1,4 +1,4 @@
-
+As you can see below, for tre-s-92 file having 20 timeslots we do not have any clashes
 
         For lse-f-91.crs
 

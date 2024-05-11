@@ -8,6 +8,7 @@ public class TimeTable extends JFrame implements ActionListener {
     private JButton tool[];
     private JTextField field[];
     private CourseArray courses;
+    private Autoassociator autoassociator = new Autoassociator(courses);
     private Color CRScolor[] = {Color.RED, Color.GREEN, Color.BLACK};
 
     public TimeTable() {
