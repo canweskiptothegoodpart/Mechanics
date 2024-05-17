@@ -1,6 +1,7 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import java.util.Arrays;
 
 public class TimeTable extends JFrame implements ActionListener {
 
@@ -8,7 +9,7 @@ public class TimeTable extends JFrame implements ActionListener {
     private JButton tool[];
     private JTextField field[];
     private CourseArray courses;
-    private Autoassociator autoassociator = new Autoassociator(courses);
+    private Autoassociator autoassociator;
     private Color CRScolor[] = {Color.RED, Color.GREEN, Color.BLACK};
 
     public TimeTable() {
@@ -29,7 +30,6 @@ public class TimeTable extends JFrame implements ActionListener {
         String capField[] = {"Slots:", "Courses:", "Clash File:", "Iters:", "Shift:"};
         field = new JTextField[capField.length];
 
-       //Continue button added
         String capButton[] = {"Load", "Start", "Step", "Print", "Exit", "Continue"};
         tool = new JButton[capButton.length];
 
@@ -74,11 +74,17 @@ public class TimeTable extends JFrame implements ActionListener {
         int min, step, clashes;
 
         switch (getButtonIndex((JButton) click.getSource())) {
-            case 0:
+            case 0: // Load
                 int slots = Integer.parseInt(field[0].getText());
                 courses = new CourseArray(Integer.parseInt(field[1].getText()) + 1, slots);
                 courses.readClashes(field[2].getText());
                 draw();
+                autoassociator = new Autoassociator(courses.length()); // Initialize Autoassociator with course length
+
+                for (int i = 0; i < slots; i++) {
+                    int[] timeslotPattern = courses.getTimeSlot(i);
+                    autoassociator.training(timeslotPattern);
+                }
                 break;
             case 1:
                 min = Integer.MAX_VALUE;
@@ -132,3 +138,4 @@ public class TimeTable extends JFrame implements ActionListener {
         new TimeTable();
     }
 }
+

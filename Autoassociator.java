@@ -2,10 +2,8 @@ public class Autoassociator {
     private int weights[][];
     private int trainingCapacity;
 
-    public Autoassociator(CourseArray courses) {
-        int numOfCourses = courses.length();
+    public Autoassociator(int numOfCourses) {
         weights = new int[numOfCourses][numOfCourses];
-
         trainingCapacity = numOfCourses;
 
         for (int i = 0; i < numOfCourses; i++) {
@@ -20,7 +18,6 @@ public class Autoassociator {
     }
 
     public void training(int pattern[]) {
-
         for (int i = 0; i < weights.length; i++) {
             for (int j = 0; j < weights.length; j++) {
                 if (i != j) {
@@ -31,7 +28,6 @@ public class Autoassociator {
     }
 
     public int unitUpdate(int neurons[]) {
-
         int index = (int) (Math.random() * neurons.length);
         int activation = 0;
         for (int i = 0; i < neurons.length; i++) {
@@ -42,7 +38,6 @@ public class Autoassociator {
     }
 
     public void unitUpdate(int neurons[], int index) {
-
         int activation = 0;
         for (int i = 0; i < neurons.length; i++) {
             activation += weights[index][i] * neurons[i];
@@ -51,14 +46,12 @@ public class Autoassociator {
     }
 
     public void chainUpdate(int neurons[], int steps) {
-
         for (int i = 0; i < steps; i++) {
             unitUpdate(neurons);
         }
     }
 
     public void fullUpdate(int neurons[]) {
-
         boolean stable = false;
         while (!stable) {
             int[] oldNeurons = neurons.clone();
