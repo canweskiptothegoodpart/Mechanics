@@ -2,12 +2,11 @@ public class Autoassociator {
     private int weights[][];
     private int trainingCapacity;
 
-    public Autoassociator(int numOfCourses) {
-        weights = new int[numOfCourses][numOfCourses];
-        trainingCapacity = numOfCourses;
-
-        for (int i = 0; i < numOfCourses; i++) {
-            for (int j = 0; j < numOfCourses; j++) {
+    public Autoassociator(CourseArray courses) {
+        weights = new int[courses.length()][courses.length()];
+        trainingCapacity = 0;
+        for (int i = 0; i < courses.length(); i++) {
+            for (int j = 0; j < courses.length(); j++) {
                 weights[i][j] = 0;
             }
         }

@@ -79,12 +79,10 @@ public class TimeTable extends JFrame implements ActionListener {
                 courses = new CourseArray(Integer.parseInt(field[1].getText()) + 1, slots);
                 courses.readClashes(field[2].getText());
                 draw();
-                autoassociator = new Autoassociator(courses.length()); // Initialize Autoassociator with course length
+                this.autoassociator = new Autoassociator(courses);
+                trainAutoassociator();
 
-                for (int i = 0; i < slots; i++) {
-                    int[] timeslotPattern = courses.getTimeSlot(i);
-                    autoassociator.training(timeslotPattern);
-                }
+
                 break;
             case 1:
                 min = Integer.MAX_VALUE;
@@ -99,7 +97,10 @@ public class TimeTable extends JFrame implements ActionListener {
                         min = clashes;
                         step = iteration;
                     }
+                    int index = (int) (Math.random() * courses.length());
+                    autoassociator.chainUpdate(courses.getTimeSlot(index), Integer.parseInt(field[3].getText()));
                 }
+
                 System.out.println("Shift = " + field[4].getText() + "\tMin clashes = " + min + "\tat step " + step);
                 setVisible(true);
                 break;
@@ -126,12 +127,37 @@ public class TimeTable extends JFrame implements ActionListener {
                         min = clashes;
                         step = iteration;
                     }
+                    int index = (int) (Math.random() * courses.length());
+                    autoassociator.chainUpdate(courses.getTimeSlot(index), Integer.parseInt(field[3].getText()));
                 }
+
                 System.out.println("Continuing from current state...");
                 System.out.println("Shift = " + field[4].getText() + "\tMin clashes = " + min + "\tat step " + step);
                 setVisible(true);
                 break;
         }
+    }
+
+
+    public void trainAutoassociator() {
+        String numOfSlots = field[0].getText();
+        for (int i = 0; i < Integer.parseInt(numOfSlots); i++) {
+            int[] timeslotData = courses.getTimeSlot(i);
+            if (isClashFree(timeslotData)) {
+                autoassociator.training(timeslotData);
+            }
+        }
+    }
+
+    private boolean isClashFree(int[] timeslotData) {
+        for (int i = 0; i < timeslotData.length; i++) {
+            if (timeslotData[i] == 1) {
+                if (courses.maxClashSize(i) > 0) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     public static void main(String[] args) {
